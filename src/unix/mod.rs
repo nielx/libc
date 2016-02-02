@@ -113,6 +113,10 @@ cfg_if! {
         #[link(name = "c")]
         #[link(name = "m")]
         extern {}
+    } else if #[cfg(target_os = "haiku")] {
+        #[link(name = "root")]
+        #[link(name = "network")]
+        extern {}
     } else {
         #[link(name = "c")]
         #[link(name = "m")]
@@ -478,7 +482,9 @@ extern {
 // TODO: get rid of this #[cfg(not(...))]
 #[cfg(not(target_os = "android"))]
 extern {
+    #[cfg(not(target_os = "haiku"))]
     pub fn getifaddrs(ifap: *mut *mut ifaddrs) -> ::c_int;
+    #[cfg(not(target_os = "haiku"))]
     pub fn freeifaddrs(ifa: *mut ifaddrs);
     #[cfg_attr(target_os = "macos", link_name = "glob$INODE64")]
     pub fn glob(pattern: *const c_char,
@@ -592,6 +598,9 @@ cfg_if! {
                         target_os = "bitrig"))] {
         mod bsd;
         pub use self::bsd::*;
+    } else if #[cfg(target_os = "haiku")] {
+        mod haiku;
+        pub use self::haiku::*;
     } else {
         // ...
     }
