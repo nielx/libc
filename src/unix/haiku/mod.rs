@@ -17,6 +17,7 @@ pub type nfds_t = ::c_long;
 pub type tcflag_t = ::c_uint;
 pub type speed_t = ::c_uint;
 pub type nl_item = ::c_int;
+pub type sem_t = _sem;
 
 pub enum timezone {}
 
@@ -150,6 +151,12 @@ s! {
         pub c_ispeed: ::speed_t,
         pub c_ospeed: ::speed_t,
         pub c_cc: [::cc_t; ::NCCS],
+    }
+    
+    pub struct _sem {
+    	_type: i32,
+    	named: i32,
+    	padding: [i32; 2]
     }
 }
 
@@ -785,6 +792,8 @@ pub const SO_BINDTODEVICE: ::c_int = 0x4000000a;
 pub const SO_PEERCRED: ::c_int = 0x4000000b;
 
 pub const NI_MAXHOST: ::size_t = 1025;
+
+pub const SEM_FAILED: *mut sem_t = -1isize as *mut sem_t;
 
 extern {
     pub fn ioctl(fd: ::c_int, request: ::c_int, ...) -> ::c_int;
