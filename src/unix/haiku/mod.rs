@@ -572,11 +572,13 @@ pub type nlink_t = i32;
 pub type useconds_t = u32;
 pub type socklen_t = u32;
 pub type pthread_t = ::uintptr_t;
+pub type pthread_attr_t = *mut ::c_void;
+pub type pthread_condattr_t = *mut :: c_void;
 pub type pthread_mutexattr_t = ::uintptr_t;
+pub type clockid_t = i32;
 pub type sigset_t = u64;
 pub type fsblkcnt_t = i64;
 pub type fsfilcnt_t = i64;
-pub type pthread_attr_t = *mut ::c_void;
 
 s! {
 	pub struct stat {
@@ -806,4 +808,8 @@ extern {
                        serv: *mut ::c_char,
                        sevlen: ::size_t,
                        flags: ::c_int) -> ::c_int;
+    pub fn pthread_condattr_getclock(attr: *const pthread_condattr_t,
+                                     clock_id: *mut clockid_t) -> ::c_int;
+    pub fn pthread_condattr_setclock(attr: *const pthread_condattr_t,
+                                     clock_id: clockid_t) -> ::c_int;
 }
