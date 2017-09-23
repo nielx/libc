@@ -576,6 +576,13 @@ pub const SA_NOCLDSTOP: ::c_int = 0x01;
 
 pub const FD_SETSIZE: usize = 1024;
 
+pub const WNOHANG: ::c_int = 0x01;
+pub const WUNTRACED: ::c_int = 0x02;
+pub const WCONTINUED: ::c_int = 0x04;
+pub const WEXITED: ::c_int = 0x08;
+pub const WSTOPPED: ::c_int = 0x10;
+pub const WNOWAIT: ::c_int = 0x20;
+
 pub const RTLD_NOW: ::c_int = 0x1;
 pub const RTLD_DEFAULT: *mut ::c_void = 0isize as *mut ::c_void;
 
